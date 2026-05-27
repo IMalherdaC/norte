@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#6366F1">
+  <title>Investimentos · Norte</title>
+  <link rel="stylesheet" href="../css/norte.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    /* ── Estilos extras para classes geradas via JS ── */
+
+    /* Utilitários de layout */
+    .flex     { display: flex; }
+    .flex-col { flex-direction: column; }
+    .flex-1   { flex: 1; }
+    .flex-wrap{ flex-wrap: wrap; }
+    .items-center  { align-items: center; }
+    .items-start   { align-items: flex-start; }
+    .justify-between { justify-content: space-between; }
+    .justify-end   { justify-content: flex-end; }
+    .gap-1  { gap: .25rem; }
+    .gap-2  { gap: .5rem; }
+    .gap-3  { gap: .75rem; }
+    .gap-4  { gap: 1rem; }
+    .gap-6  { gap: 1.5rem; }
+    .gap-1\.5 { gap: .375rem; }
+
+    /* Texto */
+    .text-xs  { font-size: .75rem; }
+    .text-sm  { font-size: .875rem; }
+    .text-xl  { font-size: 1.25rem; }
+    .text-2xl { font-size: 1.5rem; }
+    .text-3xl { font-size: 1.875rem; }
+    .font-medium  { font-weight: 500; }
+    .font-semibold{ font-weight: 600; }
+    .font-bold    { font-weight: 700; }
+    .font-extrabold { font-weight: 800; }
+    .text-center { text-align: center; }
+    .text-right  { text-align: right; }
+    .uppercase   { text-transform: uppercase; }
+    .truncate    { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .leading-tight { line-height: 1.25; }
+    .tracking-tight { letter-spacing: -.025em; }
+    .tracking-wide  { letter-spacing: .06em; }
+
+    /* Cores texto */
+    .text-muted   { color: #6B7280; }
+    .text-faint   { color: #9CA3AF; }
+    .text-primary { color: #6366F1; }
+    .text-green   { color: #10B981; }
+    .text-red     { color: #EF4444; }
+    .text-amber   { color: #F59E0B; }
+    .text-white   { color: #fff; }
+    .dark .text-green { color: #4ADE80; }
+    .dark .text-red   { color: #F87171; }
+
+    /* Espaçamento */
+    .mt-1  { margin-top: .25rem; }
+    .mt-2  { margin-top: .5rem; }
+    .mt-4  { margin-top: 1rem; }
+    .mb-1  { margin-bottom: .25rem; }
+    .mb-2  { margin-bottom: .5rem; }
+    .mb-3  { margin-bottom: .75rem; }
+    .mb-4  { margin-bottom: 1rem; }
+    .mb-6  { margin-bottom: 1.5rem; }
+    .mb-8  { margin-bottom: 2rem; }
+    .p-4   { padding: 1rem; }
+    .p-5   { padding: 1.25rem; }
+    .p-6   { padding: 1.5rem; }
+    .px-4  { padding-left: 1rem; padding-right: 1rem; }
+    .px-5  { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .px-6  { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .py-2  { padding-top: .5rem; padding-bottom: .5rem; }
+    .py-3  { padding-top: .75rem; padding-bottom: .75rem; }
+    .py-4  { padding-top: 1rem; padding-bottom: 1rem; }
+    .py-6  { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+    .py-10 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+
+    /* Miscelânea */
+    .w-full   { width: 100%; }
+    .w-auto   { width: auto; }
+    .max-w-6xl{ max-width: 1152px; }
+    .mx-auto  { margin: 0 auto; }
+    .overflow-hidden { overflow: hidden; }
+    .overflow-y-auto { overflow-y: auto; }
+    .max-h-320 { max-height: 320px; }
+    .rounded-full { border-radius: 9999px; }
+    .border-b { border-bottom: 1px solid var(--c-border); }
+    .border-t { border-top: 1px solid var(--c-border); }
+    .cursor-pointer { cursor: pointer; }
+    .relative { position: relative; }
+    .sticky   { position: sticky; }
+    .top-0    { top: 0; }
+    .z-40     { z-index: 40; }
+    .divide-y > * + * { border-top: 1px solid var(--c-border); }
+    .space-y-4 > * + * { margin-top: 1rem; }
+
+    /* Grids */
+    .grid { display: grid; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; }
+    @media (max-width: 1024px) {
+      .grid-4 { grid-template-columns: 1fr 1fr; }
+      .grid-3 { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    }
+
+    /* Bg helpers */
+    .bg-primary    { background: #6366F1; }
+    .bg-green-soft { background: #D1FAE5; }
+    .bg-red-soft   { background: #FEE2E2; }
+    .bg-amber-soft { background: #FEF9C3; }
+    .bg-blue-soft  { background: #DBEAFE; }
+    .bg-gray-soft  { background: #F3F4F6; }
+    .dark .bg-gray-soft { background: rgba(255,255,255,.05); }
+
+    /* ── Investiment card gerado por JS ── */
+    .inv-card {
+      background: var(--c-surface);
+      border-radius: var(--radius);
+      border: 1.5px solid var(--c-border);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      display: flex; flex-direction: column; gap: .5rem;
+      cursor: pointer;
+      transition: border-color .15s, transform .1s;
+    }
+    .inv-card:hover { border-color: var(--c-primary); transform: translateY(-1px); }
+
+    /* ── Ticker badge ── */
+    .ticker {
+      font-size: .72rem; font-weight: 700;
+      color: var(--c-primary);
+      letter-spacing: .05em; text-transform: uppercase;
+    }
+
+    /* ── Classe gerada pelo JS para filtros ativos ── */
+    .filter-active {
+      background: var(--c-primary);
+      color: #fff;
+      border-color: var(--c-primary) !important;
+    }
+
+    /* ── Allocation bars ── */
+    .alloc-bar {
+      height: 8px; border-radius: 99px;
+      transition: width .5s ease;
+    }
+
+    /* ── Modal type selector ── */
+    .type-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--c-border);
+    }
+    .type-tab {
+      flex: 1; padding: .75rem;
+      font-size: .85rem; font-weight: 600;
+      background: none; border: none;
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      cursor: pointer; color: var(--c-faint);
+      transition: color .15s, border-color .15s;
+      font-family: inherit;
+    }
+    .type-tab.active { color: var(--c-primary); border-bottom-color: var(--c-primary); }
+
+    /* ── Classes usadas na navbar ── */
+    .navbar-glass {
+      position: sticky; top: 0; z-index: 40;
+      height: 64px; display: flex; align-items: center;
+      background: rgba(255,255,255,.85);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--c-border);
+    }
+    .dark .navbar-glass { background: rgba(15,17,23,.85); }
+
+    /* ── Responsive hide ── */
+    @media (max-width: 768px) {
+      .hide-mobile { display: none !important; }
+    }
+    @media (min-width: 769px) {
+      .show-mobile { display: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ══════════════════ NAVBAR ══════════════════ -->
+<nav class="navbar-glass" role="navigation" aria-label="Navegação principal">
+  <div style="max-width:1152px;margin:0 auto;padding:0 1.25rem;width:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem;">
+    <div style="display:flex;align-items:center;gap:1.5rem;">
+      <a href="index.html" style="font-weight:800;font-size:1.2rem;color:#6366F1;text-decoration:none;display:flex;align-items:center;gap:.4rem;">🧭 Norte</a>
+      <div class="hide-mobile" style="display:flex;align-items:center;gap:.2rem;">
+        <a href="index.html"       class="nav-link">Dashboard</a>
+        <a href="index.html#lancamentos" class="nav-link">Lançamentos</a>
+        <a href="index.html#orcamentos"  class="nav-link">Orçamentos</a>
+        <a href="investments.html" class="nav-link active" aria-current="page">Investimentos</a>
+        <a href="reports.html"     class="nav-link">Relatórios</a>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:.5rem;">
+      <button id="btn-privacy" class="btn-icon" title="Ocultar valores (Ctrl+H)" aria-label="Privacidade">👁️</button>
+      <button id="btn-theme"   class="btn-icon" title="Tema" aria-label="Tema">🌙</button>
+      <button id="btn-add-position" class="btn btn-primary btn-sm">＋ Nova Posição</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════ MAIN ══════════════════ -->
+<main class="page" id="main-content">
+
+  <!-- ── Header ── -->
+  <div class="page-header" style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem;">
+    <div>
+      <h1 class="page-title">Carteira de Investimentos</h1>
+      <p class="page-subtitle">Posições manuais • Atualizado agora</p>
+    </div>
+    <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:.5rem;">
+        <label class="label" for="sel-period" style="margin:0;white-space:nowrap;">Período:</label>
+        <select id="sel-period" class="input" style="width:auto;">
+          <option value="12">12 meses</option>
+          <option value="24">24 meses</option>
+          <option value="36">36 meses</option>
+        </select>
+      </div>
+      <button id="btn-export" class="btn btn-ghost btn-sm">📥 Exportar</button>
+    </div>
+  </div>
+
+  <!-- ── KPIs ── -->
+  <div class="grid-4 mb-6" id="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-label">Patrimônio Total</div>
+      <div class="kpi-value text-primary" id="total-patrimony">R$ ••••</div>
+      <div class="kpi-change text-green"><span>↑ 2,3%</span><span class="text-faint">vs. mês anterior</span></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Renda Fixa</div>
+      <div class="kpi-value" id="total-fixed">R$ ••••</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Renda Variável</div>
+      <div class="kpi-value" id="total-variable">R$ ••••</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">FIIs</div>
+      <div class="kpi-value" id="total-fii">R$ ••••</div>
+    </div>
+  </div>
+
+  <!-- ── Filtros de classe ── -->
+  <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:1.25rem;">
+    <button class="btn btn-sm filter-btn" data-class="all"          style="border:1.5px solid var(--c-border);">Todos</button>
+    <button class="btn btn-sm filter-btn" data-class="fixed_income" style="border:1.5px solid var(--c-border);">💰 Renda Fixa</button>
+    <button class="btn btn-sm filter-btn" data-class="variable"     style="border:1.5px solid var(--c-border);">📈 Ações</button>
+    <button class="btn btn-sm filter-btn" data-class="fii"          style="border:1.5px solid var(--c-border);">🏢 FIIs</button>
+    <button class="btn btn-sm filter-btn" data-class="crypto"       style="border:1.5px solid var(--c-border);">₿ Cripto</button>
+    <div style="flex:1;"></div>
+    <div style="display:flex;gap:.35rem;">
+      <button class="btn btn-sm entity-btn" data-entity="all" style="border:1.5px solid var(--c-border);">PF + PJ</button>
+      <button class="btn btn-sm entity-btn" data-entity="pf"  style="border:1.5px solid var(--c-border);">👤 PF</button>
+      <button class="btn btn-sm entity-btn" data-entity="pj"  style="border:1.5px solid var(--c-border);">🏢 PJ</button>
+    </div>
+  </div>
+
+  <!-- ── Layout 2 colunas ── -->
+  <div class="col-main">
+
+    <!-- ─ Lista de posições ─ -->
+    <section aria-labelledby="pos-title">
+      <div class="sec-hdr">
+        <h2 class="sec-title" id="pos-title">Posições</h2>
+        <input type="search" id="inv-search" class="input" style="width:200px;" placeholder="🔍 Buscar...">
+      </div>
+      <div id="positions-grid" class="grid-3" style="gap:.875rem;">
+        <!-- JS rendered -->
+      </div>
+    </section>
+
+    <!-- ─ Painel lateral ─ -->
+    <div style="display:flex;flex-direction:column;gap:1.25rem;">
+
+      <!-- Alocação -->
+      <div class="card p-5" aria-labelledby="alloc-title">
+        <h2 class="sec-title mb-3" id="alloc-title">Alocação por Classe</h2>
+        <div style="position:relative;height:200px;margin-bottom:1rem;">
+          <canvas id="chart-allocation" aria-label="Gráfico de alocação"></canvas>
+        </div>
+        <div id="alloc-legend" style="display:flex;flex-direction:column;gap:.5rem;">
+          <!-- JS rendered -->
+        </div>
+      </div>
+
+      <!-- Evolução -->
+      <div class="card p-5" aria-labelledby="evo-title">
+        <h2 class="sec-title mb-3" id="evo-title">Evolução Patrimonial</h2>
+        <div style="position:relative;height:180px;">
+          <canvas id="chart-evolution" aria-label="Gráfico de evolução"></canvas>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<!-- ══════════════════ MODAL: NOVA POSIÇÃO ══════════════════ -->
+<dialog id="modal-add-position" aria-labelledby="modal-pos-title" aria-modal="true">
+  <div style="display:flex;flex-direction:column;">
+    <div class="modal-header">
+      <h2 class="modal-title" id="modal-pos-title">Nova Posição</h2>
+      <button id="modal-close" class="btn-icon" aria-label="Fechar">✕</button>
+    </div>
+
+    <div class="type-tabs">
+      <button class="type-tab active" data-type="fixed_income">💰 Renda Fixa</button>
+      <button class="type-tab" data-type="variable">📈 Ações</button>
+      <button class="type-tab" data-type="fii">🏢 FII</button>
+      <button class="type-tab" data-type="crypto">₿ Cripto</button>
+    </div>
+
+    <form id="form-position" novalidate class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="label" for="f-ticker">Ativo / Nome</label>
+          <input id="f-ticker" name="ticker" type="text" class="input" placeholder="Ex: TESOURO SELIC" required>
+        </div>
+        <div class="form-group">
+          <label class="label" for="f-entity">Entidade</label>
+          <select id="f-entity" name="entityType" class="input">
+            <option value="pf">👤 PF</option>
+            <option value="pj">🏢 PJ / MEI</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="label" for="f-qty">Quantidade</label>
+          <input id="f-qty" name="quantity" type="number" min="0.0001" step="any" class="input" placeholder="1" required>
+        </div>
+        <div class="form-group">
+          <label class="label" for="f-price">Preço Médio (R$)</label>
+          <input id="f-price" name="avgPrice" type="number" min="0.01" step="any" class="input" placeholder="0,00" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="label" for="f-current">Valor Atual (R$)</label>
+          <input id="f-current" name="currentValue" type="number" min="0.01" step="any" class="input" placeholder="0,00" required>
+        </div>
+        <div class="form-group">
+          <label class="label" for="f-date">Data de Compra</label>
+          <input id="f-date" name="purchaseDate" type="date" class="input" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="label" for="f-notes">Observações</label>
+        <input id="f-notes" name="notes" type="text" class="input" placeholder="(opcional)">
+      </div>
+
+      <div id="form-pos-error" class="alert alert-error hidden"></div>
+    </form>
+
+    <div class="modal-footer">
+      <button id="btn-cancel" class="btn btn-ghost">Cancelar</button>
+      <button id="btn-save-position" class="btn btn-primary" form="form-position" type="submit">Salvar Posição</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- ══════════════════ MOBILE NAV ══════════════════ -->
+<nav class="mobile-nav">
+  <a href="index.html"><span class="mn-icon">🏠</span>Dashboard</a>
+  <a href="index.html#lancamentos"><span class="mn-icon">💸</span>Lançamentos</a>
+  <a href="investments.html" class="active"><span class="mn-icon">📈</span>Investimentos</a>
+  <a href="reports.html"><span class="mn-icon">📋</span>Relatórios</a>
+</nav>
+
+<script>
+// ─── ESTADO ────────────────────────────────────────────────────────────────
+const state = (() => {
+  let _privacyMode = false;
+  let _darkMode    = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  let _positions   = [];
+  let _filter      = 'all';
+  let _entityFilter = 'all';
+  let _period      = 12;
+
+  // Sample data (substituído por API real)
+  const SAMPLE_POSITIONS = [
+    { id:'1', ticker:'TESOURO SELIC 2027', assetClass:'fixed_income', quantity:1, avgPrice:12500, currentValue:13200, purchaseDate:'2024-01-10', entityType:'pf', notes:'Reserva de emergência' },
+    { id:'2', ticker:'CDB Inter 120% CDI', assetClass:'fixed_income', quantity:1, avgPrice:20000, currentValue:22800, purchaseDate:'2023-06-01', entityType:'pf', notes:'Vence em 2026' },
+    { id:'3', ticker:'PETR4',              assetClass:'variable',     quantity:100, avgPrice:32.50, currentValue:38.20, purchaseDate:'2024-03-15', entityType:'pf', notes:'' },
+    { id:'4', ticker:'VALE3',              assetClass:'variable',     quantity:50,  avgPrice:68.00, currentValue:71.30, purchaseDate:'2024-04-01', entityType:'pf', notes:'' },
+    { id:'5', ticker:'MXRF11',             assetClass:'fii',          quantity:200, avgPrice:10.50, currentValue:11.20, purchaseDate:'2024-02-20', entityType:'pf', notes:'FII de papel' },
+    { id:'6', ticker:'HGLG11',             assetClass:'fii',          quantity:30,  avgPrice:158.00, currentValue:162.50, purchaseDate:'2024-05-10', entityType:'pf', notes:'FII logístico' },
+    { id:'7', ticker:'BTC',                assetClass:'crypto',       quantity:0.05, avgPrice:300000, currentValue:340000, purchaseDate:'2024-01-01', entityType:'pf', notes:'Cripto' },
+  ];
+
+  const getPositions = () => [..._positions];
+  const setPositions = (p) => { _positions = [...p]; };
+  const getPrivacy   = () => _privacyMode;
+  const togglePrivacy = () => { _privacyMode = !_privacyMode; return _privacyMode; };
+  const getDark      = () => _darkMode;
+  const toggleDark   = () => { _darkMode = !_darkMode; return _darkMode; };
+  const getFilter    = () => _filter;
+  const setFilter    = (f) => { _filter = f; };
+  const getEntity    = () => _entityFilter;
+  const setEntity    = (e) => { _entityFilter = e; };
+  const getPeriod    = () => _period;
+  const setPeriod    = (p) => { _period = Number(p); };
+
+  return Object.freeze({ getPositions, setPositions, SAMPLE_POSITIONS, getPrivacy, togglePrivacy, getDark, toggleDark, getFilter, setFilter, getEntity, setEntity, getPeriod, setPeriod });
+})();
+
+// ─── UTILS FINANCEIROS ─────────────────────────────────────────────────────
+const formatBRL = (v, privacy = false) => privacy
+  ? 'R$ ••••••'
+  : new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v);
+
+const formatPct = (v) => `${v >= 0 ? '+' : ''}${v.toFixed(2)}%`;
+
+const calcReturn = (position) => {
+  const invested = position.quantity * position.avgPrice;
+  const current  = position.assetClass === 'variable'
+    ? position.quantity * position.currentValue
+    : position.currentValue;
+  const ret = ((current - invested) / invested) * 100;
+  return { invested, current, returnPct: ret, returnAbs: current - invested };
+};
+
+const CLASS_LABELS = {
+  fixed_income: { label: 'Renda Fixa',    badge: 'badge-blue',   color: '#3B82F6' },
+  variable:     { label: 'R. Variável',   badge: 'badge-purple', color: '#8B5CF6' },
+  fii:          { label: 'FIIs',          badge: 'badge-green',  color: '#10B981' },
+  crypto:       { label: 'Cripto',        badge: 'badge-red',    color: '#EF4444' },
+  pension:      { label: 'Previdência',   badge: 'badge-blue',   color: '#F59E0B' },
+  other:        { label: 'Outros',        badge: 'badge',        color: '#9CA3AF' },
+};
+
+// ─── RENDER POSIÇÕES ───────────────────────────────────────────────────────
+const renderPositions = () => {
+  const positions = state.getPositions();
+  const filter    = state.getFilter();
+  const entity    = state.getEntity();
+  const search    = document.getElementById('search-positions').value.toLowerCase();
+  const privacy   = state.getPrivacy();
+
+  const filtered = positions.filter(p => {
+    const classOk  = filter === 'all' || p.assetClass === filter;
+    const entityOk = entity === 'all' || p.entityType === entity;
+    const searchOk = !search || p.ticker.toLowerCase().includes(search);
+    return classOk && entityOk && searchOk;
+  });
+
+  const list  = document.getElementById('positions-list');
+  const empty = document.getElementById('positions-empty');
+  const footer = document.getElementById('positions-footer');
+
+  if (!filtered.length) {
+    list.innerHTML = '';
+    empty.classList.remove('hidden');
+    footer.classList.add('hidden');
+    return;
+  }
+
+  empty.classList.add('hidden');
+  footer.classList.remove('hidden');
+
+  let totalValue   = 0;
+  let totalInvested = 0;
+
+  list.innerHTML = filtered.map(p => {
+    const meta = CLASS_LABELS[p.assetClass] || CLASS_LABELS.other;
+    const r    = calcReturn(p);
+    const val  = p.assetClass === 'variable' ? p.quantity * p.currentValue : p.currentValue;
+    totalValue    += val;
+    totalInvested += r.invested;
+
+    return `
+    <li class="asset-row" data-id="${p.id}" tabindex="0" role="button"
+        aria-label="${p.ticker} — ${meta.label}">
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-2">
+          <span class="font-semibold text-sm truncate">${p.ticker}</span>
+          <span class="${meta.badge}">${meta.label}</span>
+          ${p.entityType === 'pj' ? '<span class="badge bg-orange-100 text-orange-700">MEI</span>' : ''}
+        </div>
+        ${p.notes ? `<p class="text-xs text-gray-400 mt-0.5 truncate">${p.notes}</p>` : ''}
+      </div>
+      <div class="hidden md:block text-sm text-gray-500 text-right w-20">
+        ${p.quantity >= 1 ? p.quantity.toLocaleString('pt-BR') : p.quantity.toFixed(6)}
+      </div>
+      <div class="hidden md:block text-sm text-right w-24">
+        ${formatBRL(p.avgPrice, privacy)}
+      </div>
+      <div class="text-sm font-semibold text-right w-28">
+        ${formatBRL(val, privacy)}
+      </div>
+      <div class="text-sm font-semibold text-right w-24 ${r.returnPct >= 0 ? 'text-emerald-500' : 'text-red-500'}">
+        ${privacy ? '••••' : formatPct(r.returnPct)}
+        <div class="text-xs font-normal opacity-70">
+          ${privacy ? '' : formatBRL(r.returnAbs)}
+        </div>
+      </div>
+      <div class="flex items-center gap-1 w-20 justify-end">
+        <button onclick="editPosition('${p.id}')" class="btn-ghost !p-1.5 text-sm" aria-label="Editar ${p.ticker}">✏️</button>
+        <button onclick="deletePosition('${p.id}')" class="btn-ghost !p-1.5 text-sm" aria-label="Remover ${p.ticker}">🗑️</button>
+      </div>
+    </li>`;
+  }).join('');
+
+  // Footer totais
+  const totalReturn = totalInvested > 0 ? ((totalValue - totalInvested) / totalInvested) * 100 : 0;
+  document.getElementById('footer-total').textContent  = formatBRL(totalValue, privacy);
+  document.getElementById('footer-return').textContent = formatPct(totalReturn);
+  document.getElementById('footer-return').className   = `text-right font-semibold ${totalReturn >= 0 ? 'text-emerald-500' : 'text-red-500'}`;
+};
+
+// ─── RENDER CARDS ──────────────────────────────────────────────────────────
+const renderCards = () => {
+  const positions = state.getPositions();
+  const privacy   = state.getPrivacy();
+
+  const totals = positions.reduce((acc, p) => {
+    const val = p.assetClass === 'variable' ? p.quantity * p.currentValue : p.currentValue;
+    acc.total += val;
+    if (p.assetClass === 'fixed_income') acc.fixed    += val;
+    if (p.assetClass === 'variable')     acc.variable += val;
+    if (p.assetClass === 'fii')          acc.fii      += val;
+    return acc;
+  }, { total: 0, fixed: 0, variable: 0, fii: 0 });
+
+  document.getElementById('total-patrimony').textContent = formatBRL(totals.total, privacy);
+  document.getElementById('total-fixed').textContent     = formatBRL(totals.fixed, privacy);
+  document.getElementById('total-variable').textContent  = formatBRL(totals.variable, privacy);
+  document.getElementById('total-fii').textContent       = formatBRL(totals.fii, privacy);
+  document.getElementById('donut-center').textContent    = formatBRL(totals.total, privacy);
+
+  if (totals.total > 0) {
+    document.getElementById('bar-fixed').style.width    = `${(totals.fixed / totals.total) * 100}%`;
+    document.getElementById('bar-variable').style.width = `${(totals.variable / totals.total) * 100}%`;
+    document.getElementById('bar-fii').style.width      = `${(totals.fii / totals.total) * 100}%`;
+  }
+};
+
+// ─── CHARTS ────────────────────────────────────────────────────────────────
+let allocChart, evolutionChart;
+
+const buildAllocationChart = () => {
+  const positions = state.getPositions();
+  const byClass   = {};
+  positions.forEach(p => {
+    const val = p.assetClass === 'variable' ? p.quantity * p.currentValue : p.currentValue;
+    byClass[p.assetClass] = (byClass[p.assetClass] || 0) + val;
+  });
+
+  const labels = Object.keys(byClass).map(k => CLASS_LABELS[k]?.label || k);
+  const data   = Object.values(byClass);
+  const colors = Object.keys(byClass).map(k => CLASS_LABELS[k]?.color || '#9CA3AF');
+
+  const ctx = document.getElementById('chart-allocation').getContext('2d');
+  if (allocChart) allocChart.destroy();
+  allocChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: { labels, datasets: [{ data, backgroundColor: colors, borderWidth: 3, borderColor: 'transparent', hoverOffset: 8 }] },
+    options: {
+      cutout: '70%',
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const total = ctx.dataset.data.reduce((s, v) => s + v, 0);
+              const pct   = ((ctx.parsed / total) * 100).toFixed(1);
+              return ` ${ctx.label}: ${pct}%`;
+            },
+          },
+        },
+      },
+    },
+  });
+
+  // Legenda customizada
+  const legend = document.getElementById('allocation-legend');
+  const total  = data.reduce((s, v) => s + v, 0);
+  legend.innerHTML = labels.map((l, i) => `
+    <li class="flex items-center justify-between text-sm">
+      <span class="flex items-center gap-2">
+        <span class="w-3 h-3 rounded-sm inline-block" style="background:${colors[i]}"></span>
+        ${l}
+      </span>
+      <span class="font-medium">${total > 0 ? ((data[i] / total) * 100).toFixed(1) : 0}%</span>
+    </li>`).join('');
+};
+
+const buildEvolutionChart = () => {
+  const period = state.getPeriod();
+  // Gera série simulada — em produção vem da API /investments/evolution
+  const now    = new Date();
+  const labels = Array.from({ length: period }, (_, i) => {
+    const d = new Date(now);
+    d.setMonth(d.getMonth() - (period - 1 - i));
+    return d.toLocaleDateString('pt-BR', { month: 'short', year: '2-digit' });
+  });
+
+  const base   = 45000;
+  const values = labels.map((_, i) => base + i * 1800 + Math.random() * 500);
+  const contributions = labels.map((_, i) => base + i * 1500);
+  const returns       = values.map((v, i) => v - contributions[i]);
+
+  const ctx = document.getElementById('chart-evolution').getContext('2d');
+  if (evolutionChart) evolutionChart.destroy();
+  evolutionChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Patrimônio', data: values,
+          borderColor: '#6366F1', backgroundColor: 'rgba(99,102,241,0.08)',
+          borderWidth: 2.5, tension: 0.4, fill: true, pointRadius: 2,
+        },
+        {
+          label: 'Aportes', data: contributions,
+          borderColor: '#10B981', backgroundColor: 'transparent',
+          borderWidth: 1.5, borderDash: [5, 5], tension: 0.4, pointRadius: 0,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.dataset.label}: ${formatBRL(ctx.parsed.y, state.getPrivacy())}`,
+          },
+        },
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { color: '#9CA3AF', font: { size: 11 } } },
+        y: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { color: '#9CA3AF', font: { size: 11 },
+          callback: v => 'R$ ' + (v/1000).toFixed(0) + 'k' } },
+      },
+    },
+  });
+};
+
+// ─── MODAL ─────────────────────────────────────────────────────────────────
+const openAddModal = (position = null) => {
+  const modal = document.getElementById('modal-add-position');
+  const form  = document.getElementById('form-position');
+  form.reset();
+  if (position) {
+    Object.entries(position).forEach(([k, v]) => {
+      const el = form.elements[k];
+      if (el) el.value = v;
+    });
+    document.getElementById('modal-title').textContent = 'Editar Posição';
+  } else {
+    document.getElementById('modal-title').textContent = 'Nova Posição';
+  }
+  modal.showModal();
+};
+
+const closeModal = () => document.getElementById('modal-add-position').close();
+
+// ─── FORM SUBMIT ───────────────────────────────────────────────────────────
+document.getElementById('form-position').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const fd    = new FormData(e.target);
+  const data  = Object.fromEntries(fd.entries());
+  const error = document.getElementById('form-error');
+
+  if (!data.ticker.trim())   { error.textContent = 'Nome do ativo obrigatório'; error.classList.remove('hidden'); return; }
+  if (!data.assetClass)      { error.textContent = 'Selecione a classe do ativo'; error.classList.remove('hidden'); return; }
+  error.classList.add('hidden');
+
+  const newPos = {
+    id:           Date.now().toString(),
+    ticker:       data.ticker.toUpperCase(),
+    assetClass:   data.assetClass,
+    quantity:     parseFloat(data.quantity) || 1,
+    avgPrice:     parseFloat(data.avgPrice) || 0,
+    currentValue: parseFloat(data.currentValue) || 0,
+    purchaseDate: data.purchaseDate,
+    entityType:   data.entityType || 'pf',
+    notes:        data.notes || '',
+  };
+
+  // Em produção: POST /api/v1/investments
+  state.setPositions([...state.getPositions(), newPos]);
+  renderAll();
+  closeModal();
+});
+
+// ─── ACTIONS ───────────────────────────────────────────────────────────────
+const editPosition   = (id) => openAddModal(state.getPositions().find(p => p.id === id));
+const deletePosition = (id) => {
+  if (!confirm('Remover esta posição?')) return;
+  state.setPositions(state.getPositions().filter(p => p.id !== id));
+  renderAll();
+};
+
+// ─── FILTROS ───────────────────────────────────────────────────────────────
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => {
+      b.className = b.className.replace('bg-norte-500 text-white font-medium', 'btn-ghost rounded-none');
+    });
+    btn.classList.add('bg-norte-500', 'text-white', 'font-medium');
+    btn.classList.remove('btn-ghost', 'rounded-none');
+    state.setFilter(btn.dataset.filter);
+    renderPositions();
+  });
+});
+
+document.querySelectorAll('.entity-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.entity-btn').forEach(b => b.classList.remove('bg-norte-500', 'text-white'));
+    btn.classList.add('bg-norte-500', 'text-white');
+    state.setEntity(btn.dataset.entity);
+    renderPositions();
+  });
+});
+
+document.querySelectorAll('.period-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.period-btn').forEach(b => {
+      b.className = 'px-2 py-1 rounded-lg btn-ghost period-btn';
+    });
+    btn.className = 'px-2 py-1 rounded-lg bg-norte-50 dark:bg-norte-500/10 text-norte-500 font-medium period-btn';
+    state.setPeriod(btn.dataset.period);
+    buildEvolutionChart();
+  });
+});
+
+document.getElementById('search-positions').addEventListener('input', renderPositions);
+
+// ─── PRIVACIDADE & TEMA ────────────────────────────────────────────────────
+document.getElementById('btn-privacy').addEventListener('click', () => {
+  const p = state.togglePrivacy();
+  document.getElementById('btn-privacy').textContent = p ? '🙈' : '👁️';
+  renderAll();
+});
+
+document.getElementById('btn-theme').addEventListener('click', () => {
+  const dark = state.toggleDark();
+  document.documentElement.classList.toggle('dark', dark);
+  document.getElementById('btn-theme').textContent = dark ? '☀️' : '🌙';
+});
+
+// ─── RENDER ALL ────────────────────────────────────────────────────────────
+const renderAll = () => {
+  renderCards();
+  renderPositions();
+  buildAllocationChart();
+};
+
+// ─── INIT ──────────────────────────────────────────────────────────────────
+(function init() {
+  state.setPositions(state.SAMPLE_POSITIONS);
+  if (state.getDark()) document.documentElement.classList.add('dark');
+
+  renderAll();
+  buildEvolutionChart();
+
+  // Bind modal controls
+  document.getElementById('btn-add-position').addEventListener('click', () => openAddModal());
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  document.getElementById('btn-cancel').addEventListener('click', closeModal);
+  document.getElementById('modal-add-position').addEventListener('click', e => {
+    if (e.target === e.currentTarget) closeModal();
+  });
+
+  // Acessibilidade: fechar com Escape (dialog nativo já faz, mas garantimos)
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+})();
+
+</body>
+</html>

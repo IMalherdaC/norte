@@ -1,0 +1,35 @@
+# Ambiente
+.env
+.env.local
+.env.*.local
+
+# Banco de dados
+data/
+*.db
+*.db-shm
+*.db-wal
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Cobertura de testes
+coverage/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build / dist
+dist/
+build/
+
+# Uploads locais
+uploads/
+*.zip

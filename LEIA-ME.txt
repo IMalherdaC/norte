@@ -1,0 +1,40 @@
+╔══════════════════════════════════════════════════════╗
+║           🧭  NORTE FINANCAS — LEIA-ME               ║
+╚══════════════════════════════════════════════════════╝
+
+REQUISITO UNICO:
+  Ter o Node.js instalado → https://nodejs.org (botão LTS)
+
+═══════════════════════════════════════════════════════
+  COMO INICIAR (2 passos):
+═══════════════════════════════════════════════════════
+
+  1. Clique com o BOTÃO DIREITO no arquivo "INICIAR.ps1"
+  2. Clique em "Executar com o PowerShell"
+
+  O navegador abrirá automaticamente em:
+  → http://localhost:3000
+
+═══════════════════════════════════════════════════════
+  SE O NODE.JS NAO ESTIVER INSTALADO:
+═══════════════════════════════════════════════════════
+
+  1. Acesse: https://nodejs.org
+  2. Clique no botão verde "LTS"
+  3. Instale normalmente (Next > Next > Finish)
+  4. Reinicie o computador
+  5. Execute o INICIAR.ps1 novamente
+
+═══════════════════════════════════════════════════════
+  PROBLEMAS COMUNS:
+═══════════════════════════════════════════════════════
+
+  • "não é reconhecido como cmdlet"
+    → Node.js não está instalado. Veja acima.
+
+  • "Acesso negado" ou erro de segurança
+    → Clique com botão direito > Executar como Administrador
+
+  • Porta 3000 ocupada
+    → Abra o arquivo .env e mude PORT=3000 para PORT=3001
+      Depois acesse http://localhost:3001

@@ -1,0 +1,41 @@
+{
+  "name": "norte-financas",
+  "version": "1.0.0",
+  "description": "Norte — Finanças Pessoais Inteligentes para brasileiros",
+  "main": "server.js",
+  "scripts": {
+    "start":     "node server.js",
+    "dev":       "nodemon server.js",
+    "test":      "jest --forceExit --runInBand",
+    "test:watch":"jest --watch --runInBand",
+    "test:cov":  "jest --coverage --forceExit --runInBand",
+    "migrate":   "node database/migrations/run.js",
+    "seed":      "node -e \"require('./database/seeds/default_categories').seedDefaultCategories()\"",
+    "db:reset":  "node -e \"const fs=require('fs');try{fs.unlinkSync('data/norte.db')}catch(e){}\" && npm run migrate && npm run seed"
+  },
+  "keywords": ["fintech", "personal-finance", "pwa", "brazil", "lgpd"],
+  "author": "Norte Finanças",
+  "license": "MIT",
+  "engines": { "node": ">=18.0.0" },
+  "dependencies": {
+    "archiver":            "^6.0.1",
+    "bcryptjs":            "^2.4.3",
+    "cookie-parser":       "^1.4.6",
+    "dotenv":              "^16.4.5",
+    "express":             "^4.18.3",
+    "jsonwebtoken":        "^9.0.2",
+    "node-sqlite3-wasm":   "^0.8.18",
+    "otplib":              "^12.0.1",
+    "uuid":                "^9.0.1"
+  },
+  "devDependencies": {
+    "jest":     "^29.7.0",
+    "nodemon":  "^3.1.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch":       ["**/tests/**/*.test.js"],
+    "testTimeout":     15000,
+    "verbose":         true
+  }
+}
